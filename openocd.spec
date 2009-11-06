@@ -1,12 +1,12 @@
 Name:		openocd
-Version:	0.2.0
-Release:	4%{?dist}
+Version:	0.3.0
+Release:	1%{?dist}
 Summary:	Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:		Development/Tools
 License:	GPLv2
 URL:		http://openocd.berlios.de/web/
-Source0:	http://prdownload.berlios.de/openocd/%{name}-%{version}.tar.gz
+Source0:	http://sourceforge.net/projects/openocd/files/openocd/0.3.0/%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:	chrpath, libftdi-devel
@@ -35,8 +35,6 @@ mv -f openocd.info.conv openocd.info
   --enable-parport \
   --enable-parport_ppdev \
   --enable-ft2232_libftdi \
-  --enable-ep93xx \
-  --enable-at91rm9200 \
   --enable-usbprog \
   --enable-presto_libftdi \
   --enable-jlink \
@@ -74,10 +72,13 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/scripts
 %{_bindir}/%{name}
 %{_libdir}/%{name}
-%{_infodir}/%{name}.info.gz
+%{_infodir}/%{name}.info*.gz
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 30 2009 Dean Glazeski <dnglaze at gmail.com> - 0.3.0-1
+- RPM build for new release.
+
 * Sat Aug 22 2009 Dean Glazeski <dnglaze at gmail.com> - 0.2.0-4
 - Fixed duplicate file warnings for RPM build
 
