@@ -1,5 +1,5 @@
 Name:		openocd
-Version:	0.3.0
+Version:	0.3.1
 Release:	1%{?dist}
 Summary:	Debugging, in-system programming and boundary-scan testing for embedded devices
 
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Nov 13 2009 Dean Glazeski <dnglaze at gmail.com> - 0.3.1-1
+- RPM build for bug fix for new release.
+
 * Fri Oct 30 2009 Dean Glazeski <dnglaze at gmail.com> - 0.3.0-1
 - RPM build for new release.
 
