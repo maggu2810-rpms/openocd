@@ -1,12 +1,12 @@
 Name:		openocd
-Version:	0.3.1
+Version:	0.4.0
 Release:	1%{?dist}
 Summary:	Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:		Development/Tools
 License:	GPLv2
 URL:		http://openocd.berlios.de/web/
-Source0:	http://sourceforge.net/projects/openocd/files/openocd/0.3.0/%{name}-%{version}.tar.gz
+Source0:	http://sourceforge.net/projects/openocd/files/openocd/0.4.0/%{name}-%{version}.tar.gz
 BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:	chrpath, libftdi-devel
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Sat Feb 13 2010 Dean Glazeski <dnglaze at gmail.com> - 0.4.0-1
+- RPM build for new release.
+
 * Fri Nov 13 2009 Dean Glazeski <dnglaze at gmail.com> - 0.3.1-1
 - RPM build for bug fix for new release.
 
