@@ -1,6 +1,6 @@
 Name:		openocd
 Version:	0.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:		Development/Tools
@@ -76,6 +76,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Sat Feb 13 2010 Dean Glazeski <dnglaze at gmail.com> - 0.4.0-1
 - RPM build for new release.
 
