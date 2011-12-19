@@ -1,17 +1,20 @@
-Name:		openocd
-Version:	0.4.0
-Release:	1%{?dist}
-Summary:	Debugging, in-system programming and boundary-scan testing for embedded devices
+Name:       openocd
+Version:    0.5.0
+Release:    1%{?dist}
+Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
-Group:		Development/Tools
-License:	GPLv2
-URL:		http://openocd.berlios.de/web/
-Source0:	http://sourceforge.net/projects/openocd/files/openocd/0.4.0/%{name}-%{version}.tar.gz
-BuildRoot:	%(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+Group:      Development/Tools
+License:    GPLv2
+URL:        http://sourceforge.net/projects/openocd
+Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
 
-BuildRequires:	chrpath, libftdi-devel
-Requires(post):	info
-Requires(preun): info
+# Patch has been applied: http://openocd.zylin.com/#change,274
+Patch0:     openocd.COPYING.patch
+BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
+
+BuildRequires:  chrpath, libftdi-devel
+Requires(post): info
+Requires(preun):info
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
@@ -23,6 +26,7 @@ debugging.
 
 %prep
 %setup -q
+%patch0
 cd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
 mv -f openocd.info.conv openocd.info
@@ -32,18 +36,24 @@ mv -f openocd.info.conv openocd.info
   --disable-werror \
   --enable-static \
   --disable-shared \
+  --enable-dummy \
+  --enable-ft2232_libftdi \
+  --enable-gw16012 \
   --enable-parport \
   --enable-parport_ppdev \
-  --enable-ft2232_libftdi \
-  --enable-usbprog \
   --enable-presto_libftdi \
-  --enable-jlink \
-  --enable-vsllink \
-  --enable-rlink \
-  --enable-dummy \
-  --enable-gw16012 \
   --enable-amtjtagaccel \
-  --enable-arm-jtag-ew
+  --enable-arm-jtag-ew \
+  --enable-jlink \
+  --enable-rlink \
+  --enable-ulink \
+  --enable-usbprog \
+  --enable-vsllink \
+  --enable-oocd_trace \
+  --enable-ep39xx \
+  --enable-at91rm9200 \
+  --disable-doxygen-html \
+  CROSS=
 make %{?_smp_mflags}
 
 %install
@@ -58,7 +68,7 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %preun
 if [ $1 = 0 ]; then
-	/sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
+    /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 fi
 
 %clean
@@ -76,6 +86,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Dec 14 2011 Dean Glazeski <dnglaze at gmail.com> - 0.5.0-1
+- RPM build for new release.
+
 * Sat Feb 13 2010 Dean Glazeski <dnglaze at gmail.com> - 0.4.0-1
 - RPM build for new release.
 
