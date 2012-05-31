@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.5.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -10,6 +10,8 @@ Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/
 
 # Patch has been applied: http://openocd.zylin.com/#change,274
 Patch0:     openocd.COPYING.patch
+# add flyswatter2 support patch from http://elinux.org/images/5/5d/Tincantools-openocd-b0.12.patch
+Patch1:     Tincantools-openocd-b0.12.patch
 BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
 BuildRequires:  chrpath, libftdi-devel
@@ -27,6 +29,7 @@ debugging.
 %prep
 %setup -q
 %patch0
+%patch1 -p1
 cd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
 mv -f openocd.info.conv openocd.info
@@ -86,6 +89,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Thu May 31 2012 Dennis Gilmore <dennis@ausil.us> - 0.5.0-3
+- patch in flyswatter2 support
+
 * Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
