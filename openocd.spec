@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.5.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -89,6 +89,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jul 20 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
+
 * Thu May 31 2012 Dennis Gilmore <dennis@ausil.us> - 0.5.0-3
 - patch in flyswatter2 support
 
