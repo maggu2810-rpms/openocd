@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.6.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -49,6 +49,7 @@ mv -f openocd.info.conv openocd.info
   --enable-oocd_trace \
   --enable-ep39xx \
   --enable-at91rm9200 \
+  --enable-stlink \
   --disable-doxygen-html \
   CROSS=
 make %{?_smp_mflags}
@@ -83,6 +84,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Mon Sep 17 2012 Dean Glazeski <dnglaze at gmail.com> - 0.6.0-2
+- Enabling the stlink option
+
 * Tue Sep 11 2012 Dean Glazeski <dnglaze at gmail.com> - 0.6.0-1
 - RPM build for new release.
 
