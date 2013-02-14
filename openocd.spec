@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.6.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -84,6 +84,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Mon Sep 17 2012 Dean Glazeski <dnglaze at gmail.com> - 0.6.0-2
 - Enabling the stlink option
 
