@@ -1,5 +1,5 @@
 Name:       openocd
-Version:    0.6.1
+Version:    0.7.0
 Release:    1%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
@@ -35,6 +35,7 @@ mv -f openocd.info.conv openocd.info
   --enable-static \
   --disable-shared \
   --enable-dummy \
+  --enable-ftdi \
   --enable-ft2232_libftdi \
   --enable-gw16012 \
   --enable-usb_blaster_libftdi \
@@ -55,6 +56,7 @@ mv -f openocd.info.conv openocd.info
   --enable-ioutil \
   --enable-at91rm9200 \
   --enable-buspirate \
+  --enable-ti-icdi \
   --enable-osbdm \
   --enable-opendous \
   --enable-remote-bitbang \
@@ -93,6 +95,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Wed May 22 2013 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-1
+- update to upstream release 0.7.0
+
 * Thu May 02 2013 Markus Mayer <lotharlutz@gmx.de> - 0.6.1-1
 - update to upstream release 0.6.1
 - don't bundle jimtcl
