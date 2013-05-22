@@ -1,6 +1,6 @@
 Name:       openocd
-Version:    0.6.0
-Release:    3%{?dist}
+Version:    0.6.1
+Release:    1%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -10,7 +10,7 @@ Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/
 
 BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRequires:  chrpath, libftdi-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel
 Requires(post): info
 Requires(preun):info
 
@@ -24,6 +24,7 @@ debugging.
 
 %prep
 %setup -q
+rm -rf jimtcl
 cd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
 mv -f openocd.info.conv openocd.info
@@ -36,6 +37,7 @@ mv -f openocd.info.conv openocd.info
   --enable-dummy \
   --enable-ft2232_libftdi \
   --enable-gw16012 \
+  --enable-usb_blaster_libftdi \
   --enable-parport \
   --enable-parport_ppdev \
   --enable-presto_libftdi \
@@ -50,6 +52,13 @@ mv -f openocd.info.conv openocd.info
   --enable-ep39xx \
   --enable-at91rm9200 \
   --enable-stlink \
+  --enable-ioutil \
+  --enable-at91rm9200 \
+  --enable-buspirate \
+  --enable-osbdm \
+  --enable-opendous \
+  --enable-remote-bitbang \
+  --disable-internal-jimtcl \
   --disable-doxygen-html \
   CROSS=
 make %{?_smp_mflags}
@@ -84,6 +93,11 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Thu May 02 2013 Markus Mayer <lotharlutz@gmx.de> - 0.6.1-1
+- update to upstream release 0.6.1
+- don't bundle jimtcl
+- enable additional targets
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
