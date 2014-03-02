@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.7.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -95,6 +95,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Sun Mar 02 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-4
+- rebuild for jimtcl soname bump
+
 * Sat Sep 07 2013 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-3
 - rebuild for jimtcl soname bump
 
