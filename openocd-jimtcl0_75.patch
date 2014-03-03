@@ -1,0 +1,20 @@
+--- src/helper/command.h	2013-04-19 23:54:16.000000000 +0200
++++ src/helper/command.h	2014-03-03 15:48:42.128777100 +0100
+@@ -168,7 +168,7 @@
+ 	struct command *parent;
+ 	struct command *children;
+ 	command_handler_t handler;
+-	Jim_CmdProc jim_handler;
++	Jim_CmdProc* jim_handler;
+ 	void *jim_handler_data;
+ 	enum command_mode mode;
+ 	struct command *next;
+@@ -204,7 +204,7 @@
+ struct command_registration {
+ 	const char *name;
+ 	command_handler_t handler;
+-	Jim_CmdProc jim_handler;
++	Jim_CmdProc* jim_handler;
+ 	void *jim_handler_data;
+ 	enum command_mode mode;
+ 	const char *help;

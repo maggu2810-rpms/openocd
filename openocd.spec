@@ -7,6 +7,7 @@ Group:      Development/Tools
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
+Patch0:     openocd-jimtcl0_75.patch
 
 BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
@@ -24,6 +25,7 @@ debugging.
 
 %prep
 %setup -q
+%patch0
 rm -rf jimtcl
 cd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
@@ -97,6 +99,7 @@ rm -rf %{buildroot}
 %changelog
 * Mon Mar 03 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-5
 - rebuild for jimtcl soname bump
+- add patch to adapt to new jimtcl API
 
 * Sun Mar 02 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-4
 - rebuild for jimtcl soname bump
