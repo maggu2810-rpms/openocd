@@ -11,7 +11,7 @@ Patch0:     openocd-jimtcl0_75.patch
 
 BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
 
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel
+BuildRequires:  chrpath, libusbx-devel, libusb-devel, jimtcl-devel
 Requires(post): info
 Requires(preun):info
 
@@ -38,12 +38,9 @@ mv -f openocd.info.conv openocd.info
   --disable-shared \
   --enable-dummy \
   --enable-ftdi \
-  --enable-ft2232_libftdi \
   --enable-gw16012 \
-  --enable-usb_blaster_libftdi \
   --enable-parport \
   --enable-parport_ppdev \
-  --enable-presto_libftdi \
   --enable-amtjtagaccel \
   --enable-arm-jtag-ew \
   --enable-jlink \
@@ -100,6 +97,7 @@ rm -rf %{buildroot}
 * Mon Mar 03 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-5
 - rebuild for jimtcl soname bump
 - add patch to adapt to new jimtcl API
+- disable feature not available due to missing libftdi in epel7
 
 * Sun Mar 02 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-4
 - rebuild for jimtcl soname bump
