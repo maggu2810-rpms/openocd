@@ -9,15 +9,13 @@ URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
 Patch0:     openocd-jimtcl0_75.patch
 
-BuildRoot:  %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
-
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel
 Requires(post): info
 Requires(preun):info
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
-and boundary-scan testing for embedded devices.  Various different boards, 
+and boundary-scan testing for embedded devices. Various different boards, 
 targets, and interfaces are supported to ease development time.
 
 Install OpenOCD if you are looking for an open source solution for hardware 
@@ -68,10 +66,10 @@ mv -f openocd.info.conv openocd.info
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 rm -f %{buildroot}/%{_infodir}/dir
 rm -f %{buildroot}/%{_libdir}/libopenocd.*
+rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %post
@@ -82,14 +80,8 @@ if [ $1 = 0 ]; then
     /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
 fi
 
-%clean
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root,-)
 %doc README COPYING AUTHORS ChangeLog NEWS TODO
-%doc %{_datadir}/%{name}/contrib/*
-%dir %{_datadir}/%{name}
 %{_datadir}/%{name}/scripts
 %{_bindir}/%{name}
 %{_libdir}/%{name}
