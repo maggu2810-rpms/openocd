@@ -1,6 +1,6 @@
 Name:       openocd
-Version:    0.7.0
-Release:    5%{?dist}
+Version:    0.8.0
+Release:    1%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -8,8 +8,9 @@ License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
 Patch0:     openocd-jimtcl0_75.patch
+Patch1:     openocd-sdcc.patch
 
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc
 Requires(post): info
 Requires(preun):info
 
@@ -24,41 +25,51 @@ debugging.
 %prep
 %setup -q
 %patch0
+%patch1
 rm -rf jimtcl
+rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 cd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
 mv -f openocd.info.conv openocd.info
 
 %build
+pushd src/jtag/drivers/OpenULINK
+make hex
+popd
+
 %configure \
   --disable-werror \
   --enable-static \
   --disable-shared \
   --enable-dummy \
   --enable-ftdi \
-  --enable-ft2232_libftdi \
-  --enable-gw16012 \
-  --enable-usb_blaster_libftdi \
-  --enable-parport \
-  --enable-parport_ppdev \
-  --enable-presto_libftdi \
-  --enable-amtjtagaccel \
-  --enable-arm-jtag-ew \
-  --enable-jlink \
-  --enable-rlink \
-  --enable-ulink \
-  --enable-usbprog \
-  --enable-vsllink \
-  --enable-oocd_trace \
-  --enable-ep39xx \
-  --enable-at91rm9200 \
   --enable-stlink \
-  --enable-ioutil \
-  --enable-at91rm9200 \
-  --enable-buspirate \
   --enable-ti-icdi \
+  --enable-ulink \
+  --enable-usb-blaster-2 \
+  --enable-jlink \
   --enable-osbdm \
   --enable-opendous \
+  --enable-aice \
+  --enable-vsllink \
+  --enable-usbprog \
+  --enable-rlink \
+  --enable-armjtagew \
+  --enable-cmsis-dap \
+  --enable-parport \
+  --enable-parport_ppdev \
+  --enable-jtag_vpi \
+  --enable-usb_blaster_libftdi \
+  --enable-amtjtagaccel \
+  --enable-ioutil \
+  --enable-ep39xx \
+  --enable-at91rm9200 \
+  --enable-gw16012 \
+  --enable-presto_libftdi \
+  --enable-openjtag_ftdi \
+  --enable-oocd_trace \
+  --enable-buspirate \
+  --enable-sysfsgpio \
   --enable-remote-bitbang \
   --disable-internal-jimtcl \
   --disable-doxygen-html \
@@ -70,6 +81,8 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 rm -f %{buildroot}/%{_infodir}/dir
 rm -f %{buildroot}/%{_libdir}/libopenocd.*
 rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
+mkdir -p %{buildroot}/%{_prefix}/lib/udev/rules.d/
+install -p -m 644 contrib/99-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %post
@@ -83,12 +96,19 @@ fi
 %files
 %doc README COPYING AUTHORS ChangeLog NEWS TODO
 %{_datadir}/%{name}/scripts
+%{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
-%{_libdir}/%{name}
+%{_prefix}/lib/udev/rules.d/99-openocd.rules
 %{_infodir}/%{name}.info*.gz
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 29 2014 Markus Mayer <lotharlutz@gmx.de> - 0.8.0-1
+- update to 0.8.0
+- build ulink_firmware.hex during build
+- enable new targets
+- add udev rule
+
 * Mon Mar 03 2014 Markus Mayer <lotharlutz@gmx.de> - 0.7.0-5
 - rebuild for jimtcl soname bump
 - add patch to adapt to new jimtcl API

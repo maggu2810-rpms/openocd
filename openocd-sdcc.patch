@@ -1,0 +1,11 @@
+--- src/jtag/drivers/OpenULINK/Makefile	2014-03-29 17:55:12.000000000 +0100
++++ src/jtag/drivers/OpenULINK/Makefile	2014-04-17 18:51:51.063195353 +0200
+@@ -20,7 +20,7 @@
+ 
+ # Define the name of our tools. Some distributions (e. g. Fedora) prefix
+ # the SDCC executables, change this accordingly!
+-PREFIX =
++PREFIX = sdcc
+ 
+ # Small Device C Compiler: http://sdcc.sourceforge.net/
+ CC = $(PREFIX)-sdcc
