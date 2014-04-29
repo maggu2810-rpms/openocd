@@ -1,14 +1,14 @@
 --- src/helper/command.c	2013-04-19 23:54:16.000000000 +0200
 +++ src/helper/command.c	2014-03-03 16:02:51.091705087 +0100
-@@ -368,7 +368,7 @@
+@@ -365,7 +358,7 @@
  
- 	LOG_DEBUG("registering '%s'...", ocd_name);
+	LOG_DEBUG("registering '%s'...", ocd_name);
  
 -	Jim_CmdProc func = c->handler ? &script_command : &command_unknown;
 +	Jim_CmdProc *func = c->handler ? &script_command : &command_unknown;
- 	int retval = Jim_CreateCommand(interp, ocd_name, func, c, NULL);
- 	free((void *)ocd_name);
- 	if (JIM_OK != retval)
+	int retval = Jim_CreateCommand(interp, ocd_name, func, c, NULL);
+	free(ocd_name);
+	if (JIM_OK != retval)
 --- src/helper/command.h	2013-04-19 23:54:16.000000000 +0200
 +++ src/helper/command.h	2014-03-03 15:48:42.128777100 +0100
 @@ -168,7 +168,7 @@
