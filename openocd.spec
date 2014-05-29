@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.8.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -105,6 +105,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Thu May 29 2014 Markus Mayer <lotharlutz@gmx.de> - 0.8.0-2
+- fix build issue with libftdi-1.1
+
 * Tue Apr 29 2014 Markus Mayer <lotharlutz@gmx.de> - 0.8.0-1
 - update to 0.8.0
 - build ulink_firmware.hex during build
