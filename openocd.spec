@@ -9,8 +9,9 @@ URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
 Patch0:     openocd-jimtcl0_75.patch
 Patch1:     openocd-sdcc.patch
+Patch2:     openocd-detect-libftdi.patch
 
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel
 Requires(post): info
 Requires(preun):info
 
@@ -26,6 +27,7 @@ debugging.
 %setup -q
 %patch0
 %patch1
+%patch2
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 cd doc
