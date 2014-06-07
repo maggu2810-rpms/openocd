@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.8.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -105,6 +105,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Thu May 29 2014 Markus Mayer <lotharlutz@gmx.de> - 0.8.0-2
 - fix build issue with libftdi-1.1
 
