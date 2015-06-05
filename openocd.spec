@@ -1,17 +1,18 @@
 Name:       openocd
-Version:    0.8.0
-Release:    6%{?dist}
+Version:    0.9.0
+Release:    1%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
-Patch0:     openocd-jimtcl0_75.patch
-Patch1:     openocd-sdcc.patch
-Patch2:     openocd-detect-libftdi.patch
+# not needed at all, even with jimtcl-0.75 
+# Patch0:     openocd-jimtcl0_75.patch
+Patch0:     openocd-sdcc.patch
+Patch1:     openocd-detect-libftdi.patch
 
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo
 Requires(post): info
 Requires(preun):info
 
@@ -27,7 +28,6 @@ debugging.
 %setup -q
 %patch0
 %patch1
-%patch2
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 cd doc
@@ -101,10 +101,15 @@ fi
 %{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
 %{_prefix}/lib/udev/rules.d/99-openocd.rules
+# doc
 %{_infodir}/%{name}.info*.gz
 %{_mandir}/man1/*
 
 %changelog
+* Mon May 18 2015 Jiri Kastner <jkastner@redhat.com> - 0.9.0-1
+- update to 0.9.0
+- added texinfo dependency
+
 * Mon Feb 02 2015 Markus Mayer <lotharlutz@gmx.de> - 0.8.0-6
 - rebuild for jimtcl soname bump
 
