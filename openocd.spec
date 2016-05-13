@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.9.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -84,7 +84,8 @@ rm -f %{buildroot}/%{_infodir}/dir
 rm -f %{buildroot}/%{_libdir}/libopenocd.*
 rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
 mkdir -p %{buildroot}/%{_prefix}/lib/udev/rules.d/
-install -p -m 644 contrib/99-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/
+install -p -m 644 contrib/99-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/69-openocd.rules
+sed -i 's/MODE="664", GROUP="plugdev"/TAG+="uaccess"/' %{buildroot}/%{_prefix}/lib/udev/rules.d/69-openocd.rules
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %post
@@ -100,12 +101,15 @@ fi
 %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
-%{_prefix}/lib/udev/rules.d/99-openocd.rules
+%{_prefix}/lib/udev/rules.d/69-openocd.rules
 # doc
 %{_infodir}/%{name}.info*.gz
 %{_mandir}/man1/*
 
 %changelog
+* Fri May 13 2016 Markus Mayer <lotharlutz@gmx.de> - 0.9.0-4
+- Fix wrong udev rules bz#1177996
+
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
