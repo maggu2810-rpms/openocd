@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.9.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -107,6 +107,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Fri May 13 2016 Markus Mayer <lotharlutz@gmx.de> - 0.9.0-4
 - Fix wrong udev rules bz#1177996
 
