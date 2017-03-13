@@ -25,7 +25,6 @@ debugging.
 
 %prep
 %setup -q
-## %patch0
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 cd doc
@@ -105,6 +104,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon Mar 13 2017 Jiri Kastner <jkastner@redhat.com> - 0.10.0-2
+- removed line with commented macro
+
 * Wed Mar  8 2017 Jiri Kastner <jkastner@redhat.com> - 0.10.0-1
 - update to 0.10.0 (RHBZ 1415527)
 - added new dependency for libjaylink
