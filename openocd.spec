@@ -1,6 +1,6 @@
 Name:       openocd
-Version:    0.9.0
-Release:    6%{?dist}
+Version:    0.10.0
+Release:    1%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -9,10 +9,9 @@ URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
 # not needed at all, even with jimtcl-0.75 
 # Patch0:     openocd-jimtcl0_75.patch
-Patch0:     openocd-sdcc.patch
-Patch1:     openocd-detect-libftdi.patch
+# Patch0:     openocd-sdcc.patch
 
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel
 Requires(post): info
 Requires(preun):info
 
@@ -26,8 +25,7 @@ debugging.
 
 %prep
 %setup -q
-%patch0
-%patch1
+## %patch0
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 cd doc
@@ -36,7 +34,7 @@ mv -f openocd.info.conv openocd.info
 
 %build
 pushd src/jtag/drivers/OpenULINK
-make hex
+make PREFIX=sdcc hex
 popd
 
 %configure \
@@ -84,8 +82,8 @@ rm -f %{buildroot}/%{_infodir}/dir
 rm -f %{buildroot}/%{_libdir}/libopenocd.*
 rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
 mkdir -p %{buildroot}/%{_prefix}/lib/udev/rules.d/
-install -p -m 644 contrib/99-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/69-openocd.rules
-sed -i 's/MODE="664", GROUP="plugdev"/TAG+="uaccess"/' %{buildroot}/%{_prefix}/lib/udev/rules.d/69-openocd.rules
+install -p -m 644 contrib/60-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/60-openocd.rules
+sed -i 's/MODE="664", GROUP="plugdev"/TAG+="uaccess"/' %{buildroot}/%{_prefix}/lib/udev/rules.d/60-openocd.rules
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %post
@@ -101,12 +99,17 @@ fi
 %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
-%{_prefix}/lib/udev/rules.d/69-openocd.rules
+%{_prefix}/lib/udev/rules.d/60-openocd.rules
 # doc
 %{_infodir}/%{name}.info*.gz
 %{_mandir}/man1/*
 
 %changelog
+* Wed Mar  8 2017 Jiri Kastner <jkastner@redhat.com> - 0.10.0-1
+- update to 0.10.0 (RHBZ 1415527)
+- added new dependency for libjaylink
+- removed patches (RHBZ 1427016)
+
 * Tue Mar  7 2017 Jiri Kastner <jkastner@redhat.com> - 0.9.0-6
 - rebuild for jimtcl soname bump
 
