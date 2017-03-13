@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
