@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -104,6 +104,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Fri Mar 24 2017 Jon Disnard <parasense@fedoraproject.org> - 0.10.0-3
+- Update to use recent libjim.so bump
+
 * Mon Mar 13 2017 Jiri Kastner <jkastner@redhat.com> - 0.10.0-2
 - removed line with commented macro
 
