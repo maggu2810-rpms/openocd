@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -104,6 +104,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
