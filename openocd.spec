@@ -11,6 +11,7 @@ Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/
 # Patch0:     openocd-jimtcl0_75.patch
 # Patch0:     openocd-sdcc.patch
 
+BuildRequires:  gcc
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel
 Requires(post): info
 Requires(preun):info
