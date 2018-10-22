@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 Group:      Development/Tools
@@ -28,9 +28,11 @@ debugging.
 %setup -q
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
-cd doc
+pushd doc
 iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
 mv -f openocd.info.conv openocd.info
+popd
+sed -i 's/MODE=.*/TAG+="uaccess"/' contrib/60-openocd.rules
 
 %build
 pushd src/jtag/drivers/OpenULINK
@@ -83,7 +85,6 @@ rm -f %{buildroot}/%{_libdir}/libopenocd.*
 rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
 mkdir -p %{buildroot}/%{_prefix}/lib/udev/rules.d/
 install -p -m 644 contrib/60-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/60-openocd.rules
-sed -i 's/MODE="664", GROUP="plugdev"/TAG+="uaccess"/' %{buildroot}/%{_prefix}/lib/udev/rules.d/60-openocd.rules
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %post
@@ -105,6 +106,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Mon Oct 22 2018 Jiri Kastner <jkastner@redhat.com> - 0.10.0-9
+- fix openocd rules (RHBZ 1571599)
+
 * Sat Sep 22 2018 Lubomir Rintel <lkundrak@v3.sk> - 0.10.0-8
 - rebuild for jimtcl soname bump
 
