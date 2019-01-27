@@ -87,14 +87,6 @@ mkdir -p %{buildroot}/%{_prefix}/lib/udev/rules.d/
 install -p -m 644 contrib/60-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rules.d/60-openocd.rules
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
-%post
-/sbin/install-info %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
-
-%preun
-if [ $1 = 0 ]; then
-    /sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir || :
-fi
-
 %files
 %doc README COPYING AUTHORS ChangeLog NEWS TODO
 %{_datadir}/%{name}/scripts
