@@ -3,7 +3,6 @@ Version:    0.10.0
 Release:    9%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
-Group:      Development/Tools
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
