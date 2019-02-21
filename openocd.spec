@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
