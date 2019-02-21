@@ -6,9 +6,7 @@ Summary:    Debugging, in-system programming and boundary-scan testing for embed
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
-# not needed at all, even with jimtcl-0.75 
-# Patch0:     openocd-jimtcl0_75.patch
-# Patch0:     openocd-sdcc.patch
+Patch0:     CVE-2018-5704-Prevent-some-forms-of-Cross-Protocol-Scripting.patch
 
 BuildRequires:  gcc
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel
@@ -25,6 +23,7 @@ debugging.
 
 %prep
 %setup -q
+%patch0 -p1 -b .cve
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 pushd doc
@@ -97,6 +96,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 21 2019 Jiri Kastner <jkastner@redhat.com> - 0.10.0-11
+- fix for CVE-2018-5704 (RHBZ 1534844)
+
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
