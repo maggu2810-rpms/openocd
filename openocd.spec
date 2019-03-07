@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -10,8 +10,6 @@ Patch0:     CVE-2018-5704-Prevent-some-forms-of-Cross-Protocol-Scripting.patch
 
 BuildRequires:  gcc
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel
-Requires(post): info
-Requires(preun):info
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
@@ -96,6 +94,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Thu Mar  7 2019 Tim Landscheidt <tim@tim-landscheidt.de> - 0.10.0-12
+- Remove obsolete requirements for %%post/%%preun scriptlets
+
 * Thu Feb 21 2019 Jiri Kastner <jkastner@redhat.com> - 0.10.0-11
 - fix for CVE-2018-5704 (RHBZ 1534844)
 
