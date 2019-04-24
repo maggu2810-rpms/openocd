@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -94,6 +94,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Wed Apr 24 2019 Björn Esser <besser82@fedoraproject.org> - 0.10.0-13
+- Remove hardcoded gzip suffix from GNU info pages
+
 * Thu Mar  7 2019 Tim Landscheidt <tim@tim-landscheidt.de> - 0.10.0-12
 - Remove obsolete requirements for %%post/%%preun scriptlets
 
