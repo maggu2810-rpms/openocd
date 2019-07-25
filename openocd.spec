@@ -1,6 +1,6 @@
 Name:       openocd
 Version:    0.10.0
-Release:    13%{?dist}
+Release:    14%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -94,6 +94,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
 * Wed Apr 24 2019 Björn Esser <besser82@fedoraproject.org> - 0.10.0-13
 - Remove hardcoded gzip suffix from GNU info pages
 
