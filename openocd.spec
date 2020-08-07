@@ -1,6 +1,7 @@
+%global _legacy_common_support 1
 Name:       openocd
 Version:    0.10.0
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -94,6 +95,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Fri Aug 07 2020 Jeff Law <law@redhat.com> - 0.10.0-18
+- Enable _legacy_common_support
+
 * Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-17
 - Second attempt - Rebuilt for
   https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
