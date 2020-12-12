@@ -1,16 +1,17 @@
 %global _legacy_common_support 1
+%global rcVer 1
 Name:       openocd
-Version:    0.10.0
-Release:    18%{?dist}
+Version:    0.11.0
+Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
-Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}.tar.bz2
+Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 Patch0:     CVE-2018-5704-Prevent-some-forms-of-Cross-Protocol-Scripting.patch
 
 BuildRequires:  gcc
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel, libgpiod-devel
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
@@ -21,8 +22,7 @@ Install OpenOCD if you are looking for an open source solution for hardware
 debugging.
 
 %prep
-%setup -q
-%patch0 -p1 -b .cve
+%setup -q  -n %{name}-%{version}%{?rcVer:-rc%{rcVer}}
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
 pushd doc
@@ -69,6 +69,7 @@ popd
   --enable-oocd_trace \
   --enable-buspirate \
   --enable-sysfsgpio \
+  --enable-libgpiod \
   --enable-remote-bitbang \
   --disable-internal-jimtcl \
   --disable-doxygen-html \
@@ -95,6 +96,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Sat Dec 12 2020 Jiri Kastner <jkastner@fedoraproject.org> - 0.11.0-0.rc1
+- release candidate #1
+
 * Fri Aug 07 2020 Jeff Law <law@redhat.com> - 0.10.0-18
 - Enable _legacy_common_support
 
