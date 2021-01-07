@@ -10,6 +10,7 @@ URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 Patch0:     CVE-2018-5704-Prevent-some-forms-of-Cross-Protocol-Scripting.patch
 
+BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel, libgpiod-devel
 
