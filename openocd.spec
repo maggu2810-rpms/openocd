@@ -1,5 +1,5 @@
 %global _legacy_common_support 1
-%global rcVer 1
+%global rcVer 2
 Name:       openocd
 Version:    0.11.0
 Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.1
@@ -7,12 +7,12 @@ Summary:    Debugging, in-system programming and boundary-scan testing for embed
 
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
-Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
-Patch0:     CVE-2018-5704-Prevent-some-forms-of-Cross-Protocol-Scripting.patch
+Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 
 BuildRequires: make
 BuildRequires:  gcc
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libjaylink-devel, libgpiod-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libgpiod-devel
+BuildRequires:  libjaylink-devel >= 0.2
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
@@ -97,6 +97,11 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 29 2021 Jiri Kastner <jkastner@fedoraproject.org> - 0.11.0-0.rc2
+- release candidate #2
+- fixed some rpmlint issues (source, removed patch)
+- adjusted dependency for libjaylink-devel in buildrequries
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-0.rc1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
