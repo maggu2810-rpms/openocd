@@ -2,15 +2,15 @@
 %global rcVer 2
 Name:       openocd
 Version:    0.11.0
-Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.1
+Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.2
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
 URL:        http://sourceforge.net/projects/openocd
 Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libgpiod-devel
 BuildRequires:  libjaylink-devel >= 0.2
 
@@ -23,13 +23,9 @@ Install OpenOCD if you are looking for an open source solution for hardware
 debugging.
 
 %prep
-%setup -q  -n %{name}-%{version}%{?rcVer:-rc%{rcVer}}
+%autosetup -n %{name}-%{version}%{?rcVer:-rc%{rcVer}}
 rm -rf jimtcl
 rm -f src/jtag/drivers/OpenULINK/ulink_firmware.hex
-pushd doc
-iconv -f iso8859-1 -t utf-8 openocd.info > openocd.info.conv
-mv -f openocd.info.conv openocd.info
-popd
 sed -i 's/MODE=.*/TAG+="uaccess"/' contrib/60-openocd.rules
 
 %build
@@ -47,38 +43,44 @@ popd
   --enable-ti-icdi \
   --enable-ulink \
   --enable-usb-blaster-2 \
-  --enable-jlink \
+  --enable-ft232r \
+  --enable-vsllink \
+  --enable-xds110 \
+  --enable-cmsis-dap-v2 \
   --enable-osbdm \
   --enable-opendous \
   --enable-aice \
-  --enable-vsllink \
   --enable-usbprog \
   --enable-rlink \
   --enable-armjtagew \
   --enable-cmsis-dap \
+  --enable-nulink \
+  --enable-kitprog \
+  --enable-usb-blaster \
+  --enable-presto \
+  --enable-openjtag \
+  --enable-jlink \
   --enable-parport \
-  --enable-parport_ppdev \
   --enable-jtag_vpi \
-  --enable-usb_blaster_libftdi \
-  --enable-amtjtagaccel \
+  --enable-jtag_dpi \
   --enable-ioutil \
+  --enable-amtjtagaccel \
   --enable-ep39xx \
   --enable-at91rm9200 \
   --enable-gw16012 \
-  --enable-presto_libftdi \
-  --enable-openjtag_ftdi \
   --enable-oocd_trace \
   --enable-buspirate \
   --enable-sysfsgpio \
-  --enable-libgpiod \
+  --enable-linuxgpiod \
+  --enable-xlnx-pcie-xvc \
   --enable-remote-bitbang \
   --disable-internal-jimtcl \
   --disable-doxygen-html \
   CROSS=
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install
 rm -f %{buildroot}/%{_infodir}/dir
 rm -f %{buildroot}/%{_libdir}/libopenocd.*
 rm -rf %{buildroot}/%{_datadir}/%{name}/contrib
@@ -87,7 +89,8 @@ install -p -m 644 contrib/60-openocd.rules %{buildroot}/%{_prefix}/lib/udev/rule
 chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %files
-%doc README COPYING AUTHORS ChangeLog NEWS TODO
+%license COPYING
+%doc AUTHORS ChangeLog NEWS* NEWTAPS README TODO
 %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
@@ -97,6 +100,10 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 17 2021 Marcus A. Romer <aimylios@gmx.de> - 0.11.0-0.rc2.2
+- update build configuration
+- fix packaging of license and documentation
+
 * Fri Jan 29 2021 Jiri Kastner <jkastner@fedoraproject.org> - 0.11.0-0.rc2
 - release candidate #2
 - fixed some rpmlint issues (source, removed patch)
