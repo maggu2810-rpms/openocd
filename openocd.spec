@@ -1,13 +1,13 @@
 %global _legacy_common_support 1
-%global rcVer 2
+#%%global rcVer 2
 Name:       openocd
 Version:    0.11.0
 Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.2
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
-URL:        http://sourceforge.net/projects/openocd
-Source0:    http://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
+URL:        https://sourceforge.net/projects/openocd
+Source0:    https://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -100,6 +100,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Sun Mar 07 2021 Jiri Kastner <jkastner@fedoraproject.org> - 0.11.0-0
+- release 0.11.0
+
 * Wed Feb 17 2021 Marcus A. Romer <aimylios@gmx.de> - 0.11.0-0.rc2.2
 - update build configuration
 - fix packaging of license and documentation
