@@ -2,7 +2,7 @@
 #%%global rcVer 2
 Name:       openocd
 Version:    0.11.0
-Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.2
+Release:    1%{?rcVer:.rc%{rcVer}}%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -100,6 +100,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Tue Mar 09 2021 Marcus A. Romer <aimylios@gmx.de> - 0.11.0-1
+- bump Release version to allow automatic update from rc2
+
 * Sun Mar 07 2021 Jiri Kastner <jkastner@fedoraproject.org> - 0.11.0-0
 - release 0.11.0
 
