@@ -1,8 +1,8 @@
 %global _legacy_common_support 1
-#%%global rcVer 2
+%global rcVer 1
 Name:       openocd
-Version:    0.11.0
-Release:    2%{?rcVer:.rc%{rcVer}}%{?dist}.2
+Version:    0.12.0
+Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.1
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -11,7 +11,7 @@ Source0:    https://downloads.sourceforge.net/project/openocd/openocd/%{version}
 
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, libusb-devel, texinfo, libgpiod-devel
+BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, texinfo, libgpiod-devel, capstone-devel
 BuildRequires:  libjaylink-devel >= 0.2
 
 %description
@@ -72,10 +72,12 @@ popd
   --enable-buspirate \
   --enable-sysfsgpio \
   --enable-linuxgpiod \
+  --enable-esp-usb-jtag \
   --enable-xlnx-pcie-xvc \
   --enable-remote-bitbang \
   --disable-internal-jimtcl \
   --disable-doxygen-html \
+  --with-capstone \
   CROSS=
 %make_build
 
@@ -100,6 +102,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Mon Sep 19 2022 Jiri Kastner <jkastner@fedoraproject.org> - 0.12.0-0.rc1
+- release candidate 1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
