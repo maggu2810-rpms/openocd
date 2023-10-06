@@ -3,7 +3,7 @@
 
 Name:       openocd
 Version:    0.12.0
-Release:    2%{?rcVer:.rc%{rcVer}}%{?dist}.1
+Release:    2%{?rcVer:.rc%{rcVer}}%{?dist}.1.nolibgpiod.1
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -15,7 +15,7 @@ BuildRequires: chrpath
 BuildRequires: gcc
 BuildRequires: hidapi-devel
 BuildRequires: jimtcl-devel
-BuildRequires: libgpiod-devel
+#BuildRequires: libgpiod-devel
 BuildRequires: libjaylink-devel
 BuildRequires: libftdi-devel
 BuildRequires: libusbx-devel
@@ -80,7 +80,7 @@ popd
   --enable-oocd_trace \
   --enable-buspirate \
   --enable-sysfsgpio \
-  --enable-linuxgpiod \
+  --disable-linuxgpiod \
   --enable-esp-usb-jtag \
   --enable-xlnx-pcie-xvc \
   --enable-remote-bitbang \
